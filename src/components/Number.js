@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Number = () => {
-  return (
-    <div>Number</div>
-  )
-}
+const Number = ({ value }) => {
+  return <button className="number">{value}</button>;
+};
 
-export default Number
+export default Number;
