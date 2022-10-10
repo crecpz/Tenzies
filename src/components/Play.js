@@ -2,22 +2,48 @@ import React, { useEffect, useState } from "react";
 import Number from "./Number";
 import { v4 } from "uuid";
 
-const Play = () => {
-  const arr = [];
-  const [numbers, setNumbers] = useState(arr);
-  const numbersContent = numbers.map(({ value }) => <Number value={value} />);
 
-  // ? 我要如何才能在最初載入的時候就讓 state 保有 10 個數字呢
+// ! 至少先讓要 active 的對象先亮起來
+
+const Play = () => {
+  const [numbers, setNumbers] = useState(getNewNumbers());
+
+  const numberStyle = {
+    // backgroundColor:  active ? "#59E391" : "#fff",
+    backgroundColor: "#59E391",
+  };
+
+  const numbersContent = numbers.map(({ key, value, active }) => (
+    <Number
+      value={value}
+      style={numberStyle}
+      handleClick={() => numberActive(key)}
+    />
+  ));
+
+  function numberActive(key) {
+
+
+    // setNumbers((prev) => {
+    //   const activeTarget = prev.find((number) => number.key === key);
+    //   activeTarget.active = !activeTarget.active;
+    //   return activeTarget.active;
+    // });
+  }
 
   // useEffect(() => {
   // }, []);
 
-
-  for (let i = 1; i <= 10; i++) {
-    arr.push({ key: v4(), value: randomIntFromInterval(1, 6), active: false });
-  }
-  function changeNumber() {
-    console.log(1);
+  function getNewNumbers() {
+    const arr = [];
+    for (let i = 1; i <= 10; i++) {
+      arr.push({
+        key: v4(),
+        value: randomIntFromInterval(1, 6),
+        active: false,
+      });
+    }
+    return arr;
   }
 
   function randomIntFromInterval(min, max) {
@@ -28,7 +54,7 @@ const Play = () => {
   return (
     <div className="play">
       <div className="numbers">{numbersContent}</div>
-      <button className="roll" onClick={changeNumber}>
+      <button className="roll" onClick={getNewNumbers}>
         Roll
       </button>
     </div>
