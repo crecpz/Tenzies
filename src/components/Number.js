@@ -1,8 +1,8 @@
 import React from "react";
 
-const Number = ({ value, handleClick }) => {
+const Number = ({ value, handleClick, numberStyle }) => {
   return (
-    <button className="number" onClick={handleClick} >
+    <button className="number" onClick={handleClick} style={numberStyle}>
       {value}
     </button>
   );
