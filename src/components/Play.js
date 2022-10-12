@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 
 const Play = () => {
   const [numbers, setNumbers] = useState(getNewNumbers());
+  const [reset, setReset] = useState(false);
 
   const numbersContent = numbers.map(({ key, value, active }) => {
     const numberStyle = {
@@ -31,31 +32,16 @@ const Play = () => {
     });
   }
 
-  // console.log(numbers);
-
   useEffect(() => {
-    // if(numbers.every(({active})=> active)){
+    const activeElements = numbers.filter(({ active }) => active === true);
+    const activeLength = activeElements.length;
+    let allSameNumber = activeElements.every(
+      (i, index, arr) => i.value === arr[0].value
+    );
 
-    // }
-
-    // @ 達成的條件:
-    //   1. 所有的按鈕都已被按上
-    //   2. 所有被按上的按鈕數字皆相同
-    // @ 達成後要做什麼?
-    //  - 更換 Roll 按紐變成 Reset Game
-    // ! 以下未完成
-
-    // const isAllActive = numbers.every((i) => i.active === true);
-    // console.log()
-    const values = numbers.map(({ value }) => value);
-    // const
-    let win = false;
-    for (let i = 0; i < values.length; i++) {
-      if (values[i + 1] === values[i] && values[i].active === true) {
-        win = false;
-      }
+    if (activeLength === numbers.length && allSameNumber) {
+      setReset(true);
     }
-    if (win) console.log("win");
   }, [numbers]);
 
   // * 初次載入時，給予 numbers state 的初始值
@@ -77,6 +63,11 @@ const Play = () => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+  function resetGame() {
+    setReset(false);
+    setNumbers(getNewNumbers());
+  }
+
   function roll() {
     setNumbers((prevNumbers) => {
       return prevNumbers.map((num) => {
@@ -92,9 +83,16 @@ const Play = () => {
   return (
     <div className="play">
       <div className="numbers">{numbersContent}</div>
-      <button className="roll" onClick={roll}>
-        Roll
-      </button>
+
+      {reset ? (
+        <button className="btn" onClick={resetGame}>
+          Reset Game
+        </button>
+      ) : (
+        <button className="btn" onClick={roll}>
+          Roll
+        </button>
+      )}
     </div>
   );
 };
