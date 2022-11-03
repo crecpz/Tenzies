@@ -1,6 +1,5 @@
 import Header from "./Description"
 import Play from "./Play"
-import Number from "./Number"
 
 const Main = () => {
   return (

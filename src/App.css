@@ -22,8 +22,8 @@ button {
   align-items: center;
   height: 100vh;
   background-color: var(--dark-blue);
+  font-family: 'Roboto', sans-serif;
 }
-
 
 .main {
   display: flex;
@@ -37,21 +37,19 @@ button {
 .container {
   width: 100%;
   max-width: 520px;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
   text-align: center;
 }
 
-.header {}
-
 .header__title {
-  font-size: 32px;
+  font-size: 2.25rem;
 }
 
 .header__description {
   font-size: 1.25rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 .play {
@@ -69,19 +67,17 @@ button {
 
 .number {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
-  padding: 1rem 1.25rem;
+  padding: 0.5em 0.7em;
   border: 0;
   box-shadow: 0 3px 10px 1px #ccc;
   background-color: var(--white);
   border-radius: var(--base-radius);
 }
 
-.number--active {}
-
 .btn {
-  padding: .75rem 1.5rem;
+  padding: .75em 1.5em;
   margin-top: 3rem;
   font-weight: bold;
   font-size: 1.25rem;
@@ -89,4 +85,35 @@ button {
   color: var(--white);
   border: 0;
   border-radius: var(--base-radius);
+}
+
+@media screen and (max-width: 576px) {
+  .play {
+    margin-top: 2rem;
+  }
+
+  .container {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .header__title {
+    font-size: 1.75rem;
+  }
+
+  .header__description {
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  .numbers {
+    row-gap: 1rem;
+  }
+
+  .number {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+  }
 }
