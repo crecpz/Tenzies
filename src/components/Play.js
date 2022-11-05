@@ -8,8 +8,9 @@ const Play = () => {
 
   const numbersContent = numbers.map(({ key, value, active }) => {
     const numberStyle = {
-      backgroundColor: active ? "#59E391" : "#fff",
+      color: active ? "rgb(121 130 125)" : "#0B2434",
     };
+
     return (
       <Number
         key={key}

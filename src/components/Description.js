@@ -3,8 +3,7 @@ const Header = () => {
     <header className="header">
       <h1 className="header__title">Tenzies</h1>
       <p className="header__description">
-        Roll until all dice are the same. Click each die to freeze it at its
-        current value between rolls.
+      點擊骰子來保留特定的骰子，透過下方的 Roll 按鈕不斷更換新的骰子，直到所有的骰子相同。
       </p>
     </header>
   );

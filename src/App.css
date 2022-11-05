@@ -6,8 +6,8 @@
 
 :root {
   --dark-blue: #0B2434;
-  --light-green: #59E391;
-  --blue: #5035FF;
+  --btn-color: hsl(203deg 61% 30%);
+  /* --btn-color: rgb(15 64 95); */
   --white: #fff;
   --base-radius: 5px;
 }
@@ -22,7 +22,7 @@ button {
   align-items: center;
   height: 100vh;
   background-color: var(--dark-blue);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .main {
@@ -44,6 +44,7 @@ button {
 }
 
 .header__title {
+  font-weight: bold;
   font-size: 2.25rem;
 }
 
@@ -62,18 +63,17 @@ button {
   justify-content: space-between;
   align-items: start;
   grid-template-columns: repeat(5, 1fr);
-  row-gap: 2rem;
+  row-gap: 1.75rem;
 }
 
 .number {
   text-align: center;
-  font-size: 2rem;
+  font-size: 3.5rem;
   font-weight: bold;
-  padding: 0.5em 0.7em;
   border: 0;
-  box-shadow: 0 3px 10px 1px #ccc;
-  background-color: var(--white);
-  border-radius: var(--base-radius);
+  background-color: transparent;
+  padding: 0;
+  color: var(--dark-blue);
 }
 
 .btn {
@@ -81,10 +81,16 @@ button {
   margin-top: 3rem;
   font-weight: bold;
   font-size: 1.25rem;
-  background-color: var(--blue);
+  
+  background-color: var(--btn-color);
   color: var(--white);
   border: 0;
   border-radius: var(--base-radius);
+}
+
+.btn:hover{
+  /* background-color: hsl(203deg 73% 35%); */
+  background-color:  rgb(15 64 95);
 }
 
 @media screen and (max-width: 576px) {
@@ -97,23 +103,25 @@ button {
   }
 
   .header__title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 
   .header__description {
-    font-size: 1rem;
+    font-size: 1.125rem;
     margin-top: 1rem;
+    letter-spacing: 0.08em;
   }
 
   .numbers {
-    row-gap: 1rem;
+    row-gap: 1.25rem;
   }
 
   .number {
-    font-size: 1.5rem;
+    font-size: 3rem;
   }
 
   .btn {
     font-size: 1rem;
+    margin-top: 2rem;
   }
 }
