@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Number from "./Number";
 import { v4 } from "uuid";
+import { convertTime } from "../function";
 
-const Play = () => {
+const Play = ({ tenzies, setTenzies, time, setTime, setNewRecord, setTimerOn }) => {
   const [numbers, setNumbers] = useState(getNewNumbers());
-  const [reset, setReset] = useState(false);
 
   const numbersContent = numbers.map(({ key, value, active }) => {
     const numberStyle = {
       color: active ? "rgb(121 130 125)" : "#0B2434",
     };
-
     return (
       <Number
         key={key}
@@ -36,12 +35,15 @@ const Play = () => {
   useEffect(() => {
     const activeElements = numbers.filter(({ active }) => active === true);
     const activeLength = activeElements.length;
+
+    // 檢查是否所有數字都相同(這邊假設所有數字都與第一顆骰子相同)
     let allSameNumber = activeElements.every(
       (i, index, arr) => i.value === arr[0].value
     );
 
+    // 如果全部都相同:
     if (activeLength === numbers.length && allSameNumber) {
-      setReset(true);
+      setTenzies(true);
     }
   }, [numbers]);
 
@@ -64,11 +66,16 @@ const Play = () => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+  // * 重啟遊戲
   function resetGame() {
-    setReset(false);
+    setTenzies(false);
+    setTime(0);
+    setTimerOn(true);
     setNumbers(getNewNumbers());
+    setNewRecord(false);
   }
 
+  // * 換一批骰子
   function roll() {
     setNumbers((prevNumbers) => {
       return prevNumbers.map((num) => {
@@ -81,20 +88,26 @@ const Play = () => {
     });
   }
 
-  return (
-    <div className="play">
-      <div className="numbers">{numbersContent}</div>
+  // const {minute, second} = convertTime(time);
+  // console.log(timeResult)
 
-      {reset ? (
-        <button className="btn" onClick={resetGame}>
-          Reset Game
-        </button>
-      ) : (
-        <button className="btn" onClick={roll}>
-          Roll
-        </button>
-      )}
-    </div>
+  return (
+    <>
+      <div className="play">
+        {/* {tenzies ? `本次所花時間:${1}`: ""} */}
+        <div className="numbers">{numbersContent}</div>
+        {tenzies ? (
+          <button className="btn btn--blue" onClick={resetGame}>
+            Play Again
+            {/* Reset Game */}
+          </button>
+        ) : (
+          <button className="btn btn--roll" onClick={roll}>
+            <i className="fa-solid fa-rotate-right"></i> Roll
+          </button>
+        )}
+      </div>
+    </>
   );
 };
 
