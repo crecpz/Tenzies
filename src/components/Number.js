@@ -1,29 +1,30 @@
 const Number = ({ value, handleClick, numberStyle }) => {
-  let dice;
+  let diceType;
+  
   switch (value) {
     case 1:
-      dice = <i className="fa-solid fa-dice-one"></i>;
+      diceType = "one";
       break;
     case 2:
-      dice = <i className="fa-solid fa-dice-two"></i>;
+      diceType = "two";
       break;
     case 3:
-      dice = <i className="fa-solid fa-dice-three"></i>;
+      diceType = "three";
       break;
     case 4:
-      dice = <i className="fa-solid fa-dice-four"></i>;
+      diceType = "four";
       break;
     case 5:
-      dice = <i className="fa-solid fa-dice-five"></i>;
+      diceType = "five";
       break;
     case 6:
-      dice = <i className="fa-solid fa-dice-six"></i>;
+      diceType = "six";
       break;
   }
 
   return (
     <button className="number" onClick={handleClick} style={numberStyle}>
-      {dice}
+      <i className={`fa-solid fa-dice-${diceType}`}></i>
     </button>
   );
 };
