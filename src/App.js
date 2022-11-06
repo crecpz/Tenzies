@@ -19,14 +19,13 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   // * 用於儲存目前是否為創新紀錄的狀態
   const [hasNewHeightScore, setHasNewHightScore] = useState(false);
-  // * 計時器
-  let stopWatch;
-  // * 倒數計時 3 秒
-  let countdownTimer;
+
   const [isCountdowning, setIsCountdowning] = useState(false);
   const [countdownValue, setCountdownValue] = useState(3);
 
   useEffect(() => {
+    // * 倒數計時 3 秒
+    let countdownTimer;
     // * 倒數計時器(3 秒)
     countdownTimer = null;
     if (isCountdowning) {
@@ -50,6 +49,8 @@ function App() {
   }, [countdownValue]);
 
   useEffect(() => {
+    // * 計時器
+    let stopWatch;
     stopWatch = null;
     if (stopWatchOn) {
       stopWatch = setInterval(() => {
@@ -61,10 +62,11 @@ function App() {
     return () => clearInterval(stopWatch);
   }, [stopWatchOn]);
 
-
   return (
     <div className="app">
-      {hasNewHeightScore && <Confetti width={width} height={height} gravity={0.1} />}
+      {hasNewHeightScore && (
+        <Confetti width={width} height={height} gravity={0.1} />
+      )}
       <div className="container">
         <div className="tenzies">
           {intro ? (

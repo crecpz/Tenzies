@@ -22,7 +22,8 @@ const Play = ({
   // * 表示 modal 是否為開啟狀態
   const [modalOpen, setModalOpen] = useState(false);
   // * 計時器轉換成分與秒
-  const { minute: currentMinute, second: currentSecond } = convertTime(stopWatchValue);
+  const { minute: currentMinute, second: currentSecond } =
+    convertTime(stopWatchValue);
   // * 倒數計時器(3 秒)，轉換成分與秒
   const { minute: highScoreMinute, second: highScoreSecond } =
     convertTime(highScore);
@@ -65,7 +66,7 @@ const Play = ({
       (i, index, arr) => i.value === arr[0].value
     );
 
-    // 如果所有骰子都相同，且已經 active 的骰子數量為 10 
+    // 如果所有骰子都相同，且已經 active 的骰子數量為 10
     if (activedLength === dice.length && allSameNumber) {
       // 通關
       setTenzies(true);
@@ -154,7 +155,10 @@ const Play = ({
       setHighScore(highScore);
 
       if (highScore === 0 || stopWatchValue < highScore) {
-        window.localStorage.setItem("tenziesHighScore", JSON.stringify(stopWatchValue));
+        window.localStorage.setItem(
+          "tenziesHighScore",
+          JSON.stringify(stopWatchValue)
+        );
       }
 
       if (stopWatchValue < highScore) {
@@ -193,7 +197,7 @@ const Play = ({
           <i className="fa-solid fa-rotate-right"></i>
         </button>
       </div>
-      <div className={`play ${isCountdowning && "play--disabled"}`}>
+      <div className={`play ${isCountdowning ? "play--disabled" : ""}`}>
         <div className="dice">{dieElements}</div>
         <button className="btn btn--normal btn--blue" onClick={roll}>
           Roll
