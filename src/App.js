@@ -11,6 +11,8 @@ import ScoreBar from "./components/ScoreBar";
 import Intro from "./components/Intro";
 import { useEffect } from "react";
 import { convertTime } from "./function";
+import Modal from "./components/Modal";
+import Countdown from "./components/Countdown";
 
 function App() {
   const [width, height] = useWindowSize();
@@ -24,31 +26,56 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   // 用於儲存目前是否全部數字皆相同
   const [tenzies, setTenzies] = useState(false);
-  //
+  // 用於儲存目前是否為創新紀錄的狀態
   const [newRecord, setNewRecord] = useState(false);
   // 計時器
-  let intervalID;
+  let stopWatch;
+  // 倒數計時 3 秒
+  let countdown;
+  const [isCountdowning, setIsCountdowning] = useState(false);
+  const [countdownValue, setCountdownValue] = useState(3);
 
-  const { minute, second } = convertTime(time);
-  // console.log(timeResult)
+  // 當前計時時間(此為換算後的結果)
+  const { minute: currentMinute, second: currentSecond } = convertTime(time);
 
   useEffect(() => {
     const highScore =
       JSON.parse(window.localStorage.getItem("tenziesHighScore")) || 0;
-    console.log("highScore in 37:", highScore);
     setHighScore(highScore);
   }, []);
 
   useEffect(() => {
-    intervalID = null;
+    countdown = null;
+
+    if (isCountdowning) {
+      countdown = setInterval(() => {
+        setCountdownValue((prevCountdownValue) => prevCountdownValue - 1);
+        if (countdownValue === 0) {
+          // setCountdownValue("Go!")
+        }
+      }, 1000);
+    } else {
+      clearInterval(countdown);
+    }
+    return () => clearInterval(countdown);
+  }, [isCountdowning]);
+
+  if (countdownValue === 0) {
+    setCountdownValue("Go!");
+    setIsCountdowning(false);
+    setTimerOn(true);
+  }
+
+  useEffect(() => {
+    stopWatch = null;
     if (timerOn) {
-      intervalID = setInterval(() => {
+      stopWatch = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     } else {
-      clearInterval(intervalID);
+      clearInterval(stopWatch);
     }
-    return () => clearInterval(intervalID);
+    return () => clearInterval(stopWatch);
   }, [timerOn]);
 
   useEffect(() => {
@@ -69,19 +96,31 @@ function App() {
 
   return (
     <div className="app">
+      <Modal tenzies={tenzies} highScore={highScore} time={time} />
       {newRecord && <Confetti width={width} height={height} gravity={0.1} />}
       <div className="container">
         <div className="tenzies">
-          {newRecord ? <h1 className="title">太棒了!創新紀錄!</h1> : ""}
+          <div className="tenzies__timer">
+            {!intro && isCountdowning && (
+              <Countdown countdownValue={countdownValue} />
+            )}
+            {!intro && !isCountdowning && (
+              <>
+                <span>{currentMinute}</span>
+                <span>:</span>
+                <span>{currentSecond}</span>
+              </>
+            )}
+          </div>
 
-          {/* {newRecord ? "太棒了!創新紀錄!" : ""} */}
-
-          {tenzies ? `本次所花時間:${minute}:${second}` : ""}
           {intro ? (
-            <Intro setIntro={setIntro} setTimerOn={setTimerOn} />
+            <Intro
+              setIntro={setIntro}
+              setTimerOn={setTimerOn}
+              setIsCountdowning={setIsCountdowning}
+            />
           ) : (
             <>
-              <ScoreBar time={time} highScore={highScore} />
               <Play
                 tenzies={tenzies}
                 setTenzies={setTenzies}
@@ -89,6 +128,7 @@ function App() {
                 setTimerOn={setTimerOn}
                 setNewRecord={setNewRecord}
                 time={time}
+                isCountdowning={isCountdowning}
               />
             </>
           )}

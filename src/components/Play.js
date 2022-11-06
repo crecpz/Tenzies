@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
-import Number from "./Number";
+import Die from "./Die";
 import { v4 } from "uuid";
-import { convertTime } from "../function";
 
-const Play = ({ tenzies, setTenzies, time, setTime, setNewRecord, setTimerOn }) => {
-  const [numbers, setNumbers] = useState(getNewNumbers());
+const Play = ({
+  tenzies,
+  setTenzies,
+  setTime,
+  setNewRecord,
+  setTimerOn,
+  isCountdowning,
+}) => {
+  const [dice, setDice] = useState(getNewDice());
 
-  const numbersContent = numbers.map(({ key, value, active }) => {
-    const numberStyle = {
+  const dieElements = dice.map(({ key, value, active }) => {
+    const dieStyle = {
       color: active ? "rgb(121 130 125)" : "#0B2434",
     };
     return (
-      <Number
+      <Die
         key={key}
         value={value}
-        numberStyle={numberStyle}
-        handleClick={() => numberActive(key)}
+        dieStyle={dieStyle}
+        handleClick={() => dieActive(key)}
       />
     );
   });
 
-  function numberActive(key) {
-    setNumbers((prev) => {
+  function dieActive(key) {
+    setDice((prev) => {
       return prev.map((num) => {
         if (num.key === key) {
           return { ...num, active: !num.active };
@@ -33,7 +39,7 @@ const Play = ({ tenzies, setTenzies, time, setTime, setNewRecord, setTimerOn }) 
   }
 
   useEffect(() => {
-    const activeElements = numbers.filter(({ active }) => active === true);
+    const activeElements = dice.filter(({ active }) => active === true);
     const activeLength = activeElements.length;
 
     // 檢查是否所有數字都相同(這邊假設所有數字都與第一顆骰子相同)
@@ -42,13 +48,13 @@ const Play = ({ tenzies, setTenzies, time, setTime, setNewRecord, setTimerOn }) 
     );
 
     // 如果全部都相同:
-    if (activeLength === numbers.length && allSameNumber) {
+    if (activeLength === dice.length && allSameNumber) {
       setTenzies(true);
     }
-  }, [numbers]);
+  }, [dice]);
 
-  // * 初次載入時，給予 numbers state 的初始值
-  function getNewNumbers() {
+  // * 初次載入時，給予 dice state 的初始值
+  function getNewDice() {
     const arr = [];
     for (let i = 1; i <= 10; i++) {
       arr.push({
@@ -71,14 +77,14 @@ const Play = ({ tenzies, setTenzies, time, setTime, setNewRecord, setTimerOn }) 
     setTenzies(false);
     setTime(0);
     setTimerOn(true);
-    setNumbers(getNewNumbers());
+    setDice(getNewDice());
     setNewRecord(false);
   }
 
   // * 換一批骰子
   function roll() {
-    setNumbers((prevNumbers) => {
-      return prevNumbers.map((num) => {
+    setDice((prevDice) => {
+      return prevDice.map((num) => {
         if (num.active) {
           return num;
         } else {
@@ -88,14 +94,10 @@ const Play = ({ tenzies, setTenzies, time, setTime, setNewRecord, setTimerOn }) 
     });
   }
 
-  // const {minute, second} = convertTime(time);
-  // console.log(timeResult)
-
   return (
     <>
-      <div className="play">
-        {/* {tenzies ? `本次所花時間:${1}`: ""} */}
-        <div className="numbers">{numbersContent}</div>
+      <div className={`play ${isCountdowning && "play--disabled"}`}>
+        <div className="dice">{dieElements}</div>
         {tenzies ? (
           <button className="btn btn--blue" onClick={resetGame}>
             Play Again

@@ -14,9 +14,10 @@ const ScoreBar = ({ time, highScore }) => {
       <div className="score-bar__fastest">
         最快紀錄: <div>{highScoreMinute}</div>:<div>{highScoreSecond}</div>
       </div>
-      <div className="score-bar__time">
+
+      {/* <div className="timer">
         <div>{currentMinute}</div>:<div>{currentSecond}</div>
-      </div>
+      </div> */}
     </div>
   );
 };

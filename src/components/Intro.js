@@ -1,16 +1,17 @@
 import React from "react";
 
-const Intro = ({setIntro, setTimerOn}) => {
+const Intro = ({setIntro, setTimerOn, setIsCountdowning}) => {
 
   function startPlay (){
     setIntro(false);
-    setTimerOn(true);
+    // setTimerOn(true);
+    setIsCountdowning(true);
   }
 
   return (
     <>
     <h1 className="title">Tenzies</h1>
-      <ul className="intro-list description">
+      <ul className="intro-list text">
         <li className="intro-list__item">用最快速度讓所有骰子顯示相同數目。</li>
         <li className="intro-list__item">點擊骰子來凍結骰子數目，被凍結的骰子數目將會被固定。</li>
         <li className="intro-list__item">底部的「Roll」按鈕可以更換一批骰子。</li>
