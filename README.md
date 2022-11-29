@@ -1,9 +1,12 @@
+# Tenzies-Dice-Game
+ 使用 React 製作的骰子小遊戲。
+
 ## Demo
 https://crecpz.github.io/Tenzies-Dice-Game/
 
-## 玩法
 <img src="https://user-images.githubusercontent.com/81663340/200179650-5078d1a1-f186-4400-ac9d-89e949e1e11f.gif" width="30%" />
 
+## 玩法
 - 用盡可能短的時間讓所有骰子顯示相同數目。
 - 點擊骰子來凍結骰子數目。
 - 底部的「Roll」按鈕可擲出新的一批骰子。
