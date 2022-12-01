@@ -1,5 +1,5 @@
 # Tenzies-Dice-Game
- 使用 React.js 製作的骰子小遊戲。
+ 使用 React.js 開發的骰子小遊戲。
 
 ## Demo
 https://crecpz.github.io/Tenzies-Dice-Game/
