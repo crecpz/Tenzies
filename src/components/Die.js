@@ -1,6 +1,6 @@
 const Die = ({ value, handleClick, dieStyle }) => {
   let dieType;
-  
+
   switch (value) {
     case 1:
       dieType = "one";
@@ -23,7 +23,11 @@ const Die = ({ value, handleClick, dieStyle }) => {
   }
 
   return (
-    <button className="die" onClick={handleClick} style={dieStyle}>
+    <button
+      className="die"
+      onClick={handleClick}
+      onTouchEnd={handleClick}
+      style={dieStyle}>
       <i className={`fa-solid fa-dice-${dieType}`}></i>
     </button>
   );

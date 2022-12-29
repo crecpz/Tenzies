@@ -39,13 +39,14 @@ const Play = ({
         key={key}
         value={value}
         dieStyle={dieStyle}
-        handleClick={() => dieActive(key)}
+        handleClick={(e) => dieActive(e, key)}
       />
     );
   });
 
   // * 處理骰子按下後的 active
-  function dieActive(key) {
+  function dieActive(e, key) {
+    e.preventDefault();
     setDice((prev) => {
       return prev.map((num) => {
         if (num.key === key) {
@@ -63,7 +64,7 @@ const Play = ({
 
     // 檢查是否所有骰子都相同(這邊假設所有數字都與第一顆骰子相同)
     let allSameNumber = activedDice.every(
-      (i, index, arr) => i.value === arr[0].value
+      (i, idx, arr) => i.value === arr[0].value
     );
 
     // 如果所有骰子都相同，且已經 active 的骰子數量為 10
@@ -199,7 +200,13 @@ const Play = ({
       </div>
       <div className={`play ${isCountdowning ? "play--disabled" : ""}`}>
         <div className="dice">{dieElements}</div>
-        <button className="btn btn--normal btn--blue" onClick={roll}>
+        <button
+          className="btn btn--normal btn--blue"
+          onClick={roll}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            roll();
+          }}>
           Roll
         </button>
         <div className={`overlay ${modalOpen ? "overlay--active" : ""}`}>

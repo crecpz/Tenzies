@@ -21,7 +21,7 @@ canvas {
   z-index: 11;
 }
 
-i{
+i {
   pointer-events: none;
 }
 
@@ -55,18 +55,18 @@ i{
 
 .tenzies__head {
   display: grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.tenzies__head>:nth-child(1){
+.tenzies__head>:nth-child(1) {
   margin-right: auto;
 }
 
-.tenzies__head>:nth-child(3){
+.tenzies__head>:nth-child(3) {
   margin-left: auto;
 }
 
@@ -94,7 +94,7 @@ i{
   font-size: 1.375rem;
 }
 
-.text--red{
+.text--red {
   color: red;
 }
 
@@ -172,29 +172,18 @@ i{
   color: var(--dark-blue);
 }
 
-/* .btn--roll {
-  color: var(--white);
-  background-color: hsl(154deg 64% 36%);
-}
-
-.btn--roll:hover {
-  background-color: hsl(154deg 64% 23%);
-} */
-
 .btn--blue {
   color: var(--white);
   background-color: var(--light-blue);
 }
 
-.btn--blue:hover {
-  background-color: rgb(15 64 95);
+
+
+.btn--blue:active {
+  background-color: hsl(203deg 61% 10%);
 }
 
-.btn--blue:active{
-  background-color:hsl(203deg 61% 10%);
-}
-
-.btn:disabled{
+.btn:disabled {
   opacity: 0.5;
 }
 
@@ -221,20 +210,16 @@ i{
 .modal {
   visibility: hidden;
   opacity: 0;
-
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, 40%);
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   width: 100%;
   max-width: 22.1875rem;
   padding: 2rem;
-
   border-radius: var(--base-radius);
   background-color: rgb(255, 255, 255);
   transition: 500ms ease-in-out;
@@ -251,7 +236,7 @@ i{
   font-size: 2rem;
 }
 
-.modal__text-content{
+.modal__text-content {
   margin-top: 2rem;
 }
 
@@ -269,12 +254,18 @@ i{
   text-align: center;
 }
 
+@media screen and (hover: hover) {
+  .btn--blue:hover {
+    background-color: rgb(15 64 95);
+  }
+}
+
 
 @media screen and (max-width: 500px) {
   .play {
     margin-top: 2rem;
   }
-  
+
   .tenzies {
     padding: 2rem;
   }
@@ -309,15 +300,15 @@ i{
     margin-top: 2rem;
   }
 
-  .btn--icon{
+  .btn--icon {
     font-size: 1.5rem;
   }
 
-  .tenzies__timer{
+  .tenzies__timer {
     font-size: 2rem;
   }
 
-  .modal{
+  .modal {
     max-width: 21.875rem;
   }
 }

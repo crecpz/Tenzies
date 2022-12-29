@@ -1,10 +1,9 @@
 import "./App.css";
 import { useWindowSize } from "@react-hook/window-size";
 import Play from "./components/Play";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Confetti from "react-confetti";
 import Intro from "./components/Intro";
-import { useEffect } from "react";
 
 function App() {
   // * 當前螢幕寬高
@@ -19,8 +18,9 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   // * 用於儲存目前是否為創新紀錄的狀態
   const [hasNewHeightScore, setHasNewHightScore] = useState(false);
-
+  // * 儲存目前是否已開始倒數
   const [isCountdowning, setIsCountdowning] = useState(false);
+  // * 倒數數值
   const [countdownValue, setCountdownValue] = useState(3);
 
   useEffect(() => {
