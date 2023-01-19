@@ -26,8 +26,6 @@ function App() {
   useEffect(() => {
     // * 倒數計時 3 秒
     let countdownTimer;
-    // * 倒數計時器(3 秒)
-    countdownTimer = null;
     if (isCountdowning) {
       countdownTimer = setInterval(() => {
         setCountdownValue((prevCountdownValue) => prevCountdownValue - 1);
@@ -51,7 +49,6 @@ function App() {
   useEffect(() => {
     // * 計時器
     let stopWatch;
-    stopWatch = null;
     if (stopWatchOn) {
       stopWatch = setInterval(() => {
         setStopWatchValue((prevTime) => prevTime + 1);
